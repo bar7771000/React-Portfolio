@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Navbar from "./components/Navbar";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import Testimonials from "./components/Testimonials";
+import {Route, Link, Router, Routes, useLocation} from "react-router-dom"
+import { AnimatePresence } from 'framer-motion';
+
 
 function App() {
+
+  const location = useLocation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    //Initial order of the components on a page
+    <div className='App'>
+      <Navbar/>
+      <AnimatePresence exitBeforeEnter>
+        <Routes key={location.pathname} location={location}>
+          <Route exact path="/about" element={<About/>}></Route>
+          <Route exact path="/contact" element={<Contact/>}></Route>
+          <Route exact path="/projects" element={<Projects/>}></Route>
+          <Route exact path="/skills" element={<Skills/>}></Route>
+          <Route exact path="/testimonials" element={<Testimonials/>}></Route>
+        </Routes>
+      </AnimatePresence>
     </div>
   );
 }
